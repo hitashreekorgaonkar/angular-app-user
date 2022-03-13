@@ -1,0 +1,98 @@
+<nav class="navbar navbar-light bg-warning">
+  <div class="container-fluid">
+    <a class="navbar-brand">user-app</a>
+    <form class="d-flex">
+      <button (click)="logout()" class="btn btn-outline-danger">Logout</button>
+    </form>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row justify-content-center my-5">
+    <div class="col-12 col-md-5 ">
+      <div class="card mt-2 w-100 border-0 rounded-0 shadow h-100">
+        <div class="card-block little-profile text-center">
+          <div class="pro-img">
+            <ngx-avatar class="d-flex justify-content-center" src="{{ userDetail?.profilePic }}" size="200"
+              [name]="userDetail?.name">
+            </ngx-avatar>
+          </div>
+          <h6 *ngIf="!userDetail" class="">{{email}}</h6>
+          <h5 *ngIf="!userDetail" class="">Update Details and Add Profile Pic</h5>
+          <h6 class=" fw-bold text-capitalize mt-4">{{userDetail?.name}}</h6>
+          <h6 class=" fw-bold pb-2">{{ userDetail?.email }}</h6>
+          <h6 class=" fw-bold pb-4">{{userDetail?.mobile}}</h6>
+          <button (click)="onEdit(userDetail)" type="button" class="btn shadow border btn-outline-dark float-end m-2"
+            data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <img
+              src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/40/000000/external-edit-interface-kiranshastry-gradient-kiranshastry.png" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formValue">
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Full Name</label>
+            <input type="text" formControlName="name" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['name'].errors }" />
+            <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+              <div *ngIf="f['name'].errors['required']">Fullname is required</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Mobile Number</label>
+            <input formControlName="mobile" type="text" class="form-control" id="exampleFormControlInput1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+            <input type="text" formControlName="email" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
+            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+              <div *ngIf="f['email'].errors['required']">Email is required</div>
+              <div *ngIf="f['email'].errors['email']">Email is invalid</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Password</label>
+            <input type="password" formControlName="password" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+            <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+              <div *ngIf="f['password'].errors['required']">Password is required</div>
+              <div *ngIf="f['password'].errors['minlength']">
+                Password must be at least 6 characters
+              </div>
+              <div *ngIf="f['password'].errors['maxlength']">
+                Username must not exceed 40 characters
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Profile Pic</label>
+            <input class="form-control" accept="image/*" type="file" id="formFile" (change)="onChangeImage($event)" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" (click)="updateUser()" class="btn btn-primary me-3">Update</button>
+        <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

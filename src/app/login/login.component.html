@@ -1,0 +1,50 @@
+<div class="container">
+
+  <div class="row justify-content-center mt-5">
+    <div class="col-12 col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="">Login</h5>
+        </div>
+        <div class="card-body">
+          <p class="">For Test Email Id - karishma@gmail.com</p>
+          <p class="mb-4">Password - 123456</p>
+
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Email address</label>
+              <input type="text" formControlName="email" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
+              <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                <div *ngIf="f['email'].errors['required']">Email is required</div>
+                <div *ngIf="f['email'].errors['email']">Email is invalid</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Password</label>
+              <input type="password" formControlName="password" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+              <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                <div *ngIf="f['password'].errors['required']">Password is required</div>
+                <div *ngIf="f['password'].errors['minlength']">
+                  Password must be at least 6 characters
+                </div>
+                <div *ngIf="f['password'].errors['maxlength']">
+                  Username must not exceed 40 characters
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a routerLink="/signup" class="link-primary text-decoration-none ps-3">New User? Click to Sign Up</a>
+            <div *ngIf="error" class="alert alert-danger d-flex align-items-center mt-4" role="alert">
+              {{error}}!!
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
